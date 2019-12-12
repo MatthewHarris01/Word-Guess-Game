@@ -1,0 +1,12 @@
+/* styles for Word-Guess-Game */
+
+body {
+	background-color:black ;
+	background-image: url('../images/main-bg.jpg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	font-size:12pt;
+	color:#FFFF99;
+	
+}
