@@ -9,13 +9,39 @@
   <!-- Add CSS link-->
   <!-- <link rel="stylesheet" type="css/text" href="assets/css/style.css"> -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <!-- link to the jQuery Library -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- add JS file link-->
+  <script type="text/javascript" src="assets/javascript/game.js"></script>
+
 </head>
 <body></body>
 
-<div style="margin-left:auto;margin-right:auto;width:50%;text-align:center;">
+<div class="gameLogo">
   <img src="assets/images/SPACE FLIGHT.jpg" alt="Space Flight logo" >
+  <h1 id="PROMPT1">PRESS ANY KEY TO BEGIN</h1>
 </div>
 
+
+<div class="computeroutput" >
+  <!-- THIS DIV IS FOR THE COMPUTER WORD UPDATE-->
+  <p>The word you are trying to guess: 
+    <p id="cmpword">_ _ _ _ _ _ _ _ _ _ _ _</p>
+  <!-- show word as "_ _ _ _ (note there is a space between each "_")-->
+  <!-- show letters successfully guessed-->
+  <!---->
+</div>
+
+<div class ="userinfo">
+  <!-- THIS DIV IS TO SHOW THE USER INFO, SUCH AS WINS, GUESSES REMAINING, AND SO ON.-->
+  <p>Information about your score and remaining tries</p>
+  <p>You have guessed these letters, so far:</p>
+  <p id="guesses"></p>A B C D E F G H I J K L M</p>
+  <p>Tries remaining: <span id="guessesremaining">26</span></p>
+  <p><strong>Wins so far: <span id=wins>0</span></strong></p>
+ <p><strong>You have <span>26</span> guesses remaining!</strong></p>
+</div>
 
 
 </body>

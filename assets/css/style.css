@@ -10,3 +10,34 @@ body {
 	color:#FFFF99;
 	
 }
+
+div.computeroutput {
+	border:2px solid #FFFF99;
+	margin-top:30pt;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+	padding:10pt;
+	text-align:center;
+	width:40%;
+	float:right;
+}
+
+div.userinfo {
+	border:2px solid #FFFF99;
+	margin-top:30pt;
+	font-family:'Courier New', Courier, monospace;
+
+	padding:10pt;
+	text-align:center;
+	width:40%;
+	float:left;
+}
+
+div.gameLogo {
+	margin-left:auto;
+	margin-right:auto;
+	width:50%;
+	text-align:center;
+	BORDER:2px solid cyan;
+	min-width:300px;
+}
