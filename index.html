@@ -27,22 +27,32 @@
 <div class="computeroutput" >
   <!-- THIS DIV IS FOR THE COMPUTER WORD UPDATE-->
   <p>The word you are trying to guess: 
-    <p id="cmpword">_ _ _ _ _ _ _ _ _ _ _ _</p>
+    <p id="cmpword">no word selected by computer, yet</p>
   <!-- show word as "_ _ _ _ (note there is a space between each "_")-->
-  <!-- show letters successfully guessed-->
+  <!-- show letters guessed-->
+  <p>You have guessed these letters, so far:</p>
+  <p style="color:green;"></p><span id="guesses" style="color:green;"> user guesses</span></p>
+  <p><strong>You have <span id="guessesremaining2" style="color:red;">0</span> guesses remaining!</strong></p>
   <!---->
 </div>
 
 <div class ="userinfo">
   <!-- THIS DIV IS TO SHOW THE USER INFO, SUCH AS WINS, GUESSES REMAINING, AND SO ON.-->
-  <p>Information about your score and remaining tries</p>
-  <p>You have guessed these letters, so far:</p>
-  <p id="guesses"></p>A B C D E F G H I J K L M</p>
-  <p>Tries remaining: <span id="guessesremaining">26</span></p>
-  <p><strong>Wins so far: <span id=wins>0</span></strong></p>
- <p><strong>You have <span>26</span> guesses remaining!</strong></p>
+  <p><b>Information about your score and remaining tries</b></p>
+  <!-- <p>Tries remaining: <span id="guessesremaining1" style="color:green;">26</span></p> -->
+  <p><strong>You have guessed the word correctly: <span id=wins>0</span></strong> times.</p>
+ <p><strong>You have won <span id="wins">0</span> times!</strong></p>
 </div>
 
+
+
+<!--AUDIO LINKS-->
+<audio id="youLose">
+    <source> src = "assets/sounds/youlose.wav type ="audio/wav">
+</audio>
+<audio id="youWin">
+    <source src="assets/sounds/win.wav"  type="audio/wav">
+</audio>
 
 </body>
 </html>

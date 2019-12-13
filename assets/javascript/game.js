@@ -3,7 +3,7 @@
 
 
 $(document).ready(function() {
-  console.log("document is ready");
+  console.log("document is ready function");
 
 
   // Gobal variables
@@ -49,28 +49,71 @@ $(document).ready(function() {
   function initGame() {
     console.log("initialize the game");
     //this functions resets the game and onscreen elements ready to start a new word
+    //RESET VARIABLES
     userGuesses = ""  //reset user guesses to empty string
     //note userWins should not be reset, as that is the total number of wins for the entire session
-    userGuessRemaining = 26;  //usr gets a total of 26 guesses each word.
-    compWord = cmpPickWord();
-    compWord = compWord.toLowerCase();
+    userGuessRemaining = 26;  //user gets a total of 26 guesses each word.
+    compWord = cmpPickWord(); //pick a word from the array of words.
+    //compWord = compWord.toLowerCase(); //change it to lower case
     console.log("computer word is '" + compWord +"'");
-    //change the content of h1 with id="PROMPT1"
+    //change the content of h1 with id="PROMPT1" to show that play is in progress
     var E = document.getElementById("PROMPT1").innerText = "GAME IS IN PROGRESS";
-    E.innertext = cmpword;
+    E.innertext = cmpword; // for testng only
         //display info
-        // cmpWordBlank = formatUnguessed(cmpword);
-    var W = document.getElementById("cmpword").innerText=formatUnGuessed(compWord);
-    console.log("result of formatUnGuessed '" + formatUnGuessed(compWord) + "'")
-    W.innertext = "NEW TEXT";
-        
+        updateDisplay();
+  
+    // // display unguessed word (blanks);
+    // document.getElementById("cmpword").innerText=formatUnGuessed(compWord); //insert the string for the unguessed word.
+    // console.log("result of formatUnGuessed '" + formatUnGuessed(compWord) + "'") //testing
+
+    // //display remaining tries
+    // document.getElementById("guessesremaining2").innerText = userGuessRemaining;;
+
+    // //display letters guessed so far
+    // if (userGuesses.length == 0) {
+    //   document.getElementById("guesses").innerText = "None" //no guesses made yet
+    // }
+    // else {
+    //   document.getElementById("guesses").innerText = userGuesses; //no guesses made yet
+    // }
+
+    // //display remaining tries
+    // document.getElementById("guessesremaining2").innerText = userGuessRemaining;
+
+    // //display wins
+    // document.getElementById("wins").innerText = userWins;
 
     //set game in progress flag to true;
     isSpinning = true;
   }
 
+  function updateDisplay() {
+    console.log("in updateDisplay function");
+        // display unguessed word (blanks);
+        document.getElementById("cmpword").innerText=formatUnGuessed(compWord); //insert the string for the unguessed word.
+        console.log("result of formatUnGuessed '" + formatUnGuessed(compWord) + "'") //testing
+    
+        //display remaining tries
+        document.getElementById("guessesremaining2").innerText = userGuessRemaining;;
+    
+        //display letters guessed so far
+        if (userGuesses.length == 0) {
+          document.getElementById("guesses").innerText = "None" //no guesses made yet
+        }
+        else {
+          document.getElementById("guesses").innerText = userGuesses; //no guesses made yet
+        }
+    
+        //display remaining tries
+        document.getElementById("guessesremaining2").innerText = userGuessRemaining;
+    
+        //display wins
+        document.getElementById("wins").innerText = userWins;
+    
+  }
+
 function formatUnGuessed(wrd) {
-  //this function formats the unguessed word for display
+  //this function formats the unguessed word for display, passed as the paramter "wrd"
   //if the string of user guesses is empty, then format the whole string
   //if not, then have to check which of the user guesses are in the computer's word.
   var tmp = "";
@@ -85,57 +128,58 @@ function formatUnGuessed(wrd) {
     }
   }
   else {
-    console.log("must see which of the userg guesses were correct");
+    console.log("must see which of the user guesses were correct");
+    console.log("current guesses are:");
+    console.log(userGuesses);
   }
+  console.log("result before returning from formatting function");
+  console.log("'" + tmp + "'");
   return tmp;
 }
 
 function cmpPickWord() {
   console.log('computer picks random word from list');
   var idx = 0;
-  
-  //generate a random number from 0 to 17
-
-  // console.log("random number: " + Math.floor(Math.random() * 18));
-  idx = Math.floor(Math.random()* 18);
-  // console.log("VALUE OF IDX:");
+  //generate a random number from 0 to 16
+  idx = Math.floor(Math.random()* 17);
   console.log(idx);
-  // console.log("idx type " + typeof(idx));
-  // idx = Math.floor(idx);
-  // console.log ("idx rounded with Floor: ");
-  // console.log(idx);
-  // idx = parseInt(idx);
   console.log("word index: " + idx);
+  console.log("picked word: " + wordList[idx]);
   return wordList[idx];
 }
 
+function playerLoss() { //NOT WORKING,NOT SURE WHY
+  //player has lost the game
+  alert("you lose!");
+  var x = document.getElementById("youLose");
+  x.play;
+}
+
+function playerWin() { //AUDIO NOT WORKING, NOT SURE WHY
+  //player has won the game
+  alert("You WIN!");
+  var x = document.getElementById("youWin");
+  x.play;
+}
 
 
+  //**testing code goes here
+  // console.log("TESTING MODE");
+  //testing audio play
+  // playerLoss();
+  // playerWin(0);
 
-  
-// // testing for longest word in the wordList
-// var tmp=0;
-// for(i=0;i<wordList.length;i++ ) {
-//   var wrd = wordList[i];
-//   // console.log("length of wordlist array: " + wordList.length)
-//   // if (tmp < wrd.length) {tmp = wrd.length + wrd }  //find the laongest word
-//   // console.log("word: " + i);
-//   console.log( wrd + " length: " + wrd.length);
-//   // console.log(tmp)
-// }
 
-// return;
+// console.log("end testing - return from document ready function");
+// return; //end document.ready function without doing more work
 
-// var tmp = "Y";
-// console.log("result of isValid: " + isValid(tmp))
 
-// return;
 
 
 
 // Your code here...
 
-//THIS IS THE START OF THE KEY EVENT HANDLER, MOST OF THE GAME ACTION OCCURS IN THIS FUNCTION
+//THIS IS THE START OF THE KEY EVENT HANDLER, THE MAJORITY OF THE GAME ACTION OCCURS IN THIS FUNCTION
 console.log(" on key up event-handler");
 document.onkeyup = function (event) {
  var input = event.key;
@@ -150,6 +194,19 @@ document.onkeyup = function (event) {
 else if (isValid(input)) {
   //user has presed a valid letter key
   console.log("user pressed valid letter: " + input);
+  //add user guess to string of user guesses
+  userGuesses += input;
+  //check if the user guess is in the current word
+  //decrement guesses remaining
+  userGuessRemaining = userGuessRemaining -1;
+  if (userGuessRemaining <= 0) {
+    //player is out of guesses!
+    playerLoss();
+  }
+
+  //update the screen display
+  console.log("update sreen display");
+  updateDisplay();
 }
 else {
   //invalid input
