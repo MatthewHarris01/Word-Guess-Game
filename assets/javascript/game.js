@@ -76,9 +76,11 @@ $(document).ready(function () {
       document.getElementById("PROMPT1").innerText = "GAME IS IN PROGRESS";
     }
     // display unguessed word (blanks);
-    document.getElementById("cmpword").innerText = // formatUnGuessed(compWord); //insert the string for the unguessed word.
-    // console.log("result of formatUnGuessed '" + formatUnGuessed(compWord) + "'") //testing
-
+    document.getElementById("cmpword").innerText = cmpWordBlank;
+    
+    
+    
+    
     //display remaining tries
     document.getElementById("guessesremaining2").innerText = userGuessRemaining;;
 
@@ -95,6 +97,7 @@ $(document).ready(function () {
 
     //display wins
     document.getElementById("wins").innerText = userWins;
+    console.log("end of update display");
 
   }
 
@@ -102,6 +105,7 @@ $(document).ready(function () {
     //this function formats the unguessed word for display, passed as the paramter "wrd"
     //if the string of user guesses is empty, then format the whole string
     //if not, then have to check which of the user guesses are in the computer's word.
+    console.log("format ungessed word");
     var tmp = "";
     console.log("in formatting function");
     console.log("wrd argument is: " + wrd);
@@ -115,59 +119,80 @@ $(document).ready(function () {
     }
     else {
       console.log("must call the fomrWordWithGuess function to re-format the cmpWordBlank variable content");
-      // console.log("current guesses are:");
-      // console.log(userGuesses);
-      // tmp = formatWordWithGuesses;
+      console.log("current guesses are:");
+      console.log(userGuesses);
+      tmp = formatWordWithGuesses;
     }
 
-      // console.log("result before returning from formatunguessedWord function");
-      // console.log("index arry before ending format function below:");
-      // console.log(indexes);
+      console.log("result before returning from formatunguessedWord function");
       console.log("'" + tmp + "'");
+      console.log("end of formatUnGuessed word function");
       return tmp;
     
   }
 
   function formatWordWithGuesses(wrd) {
     //this function presumes there are some guesses, and formats a string for the display, based on the cmbWordBlan variable contents
+    console.log("IN FUNCTION formatWordWithGuesses");
+
     console.log("blank word below: ");
     console.log(cmpWordBlank);
 
-    if (userGuesses == "") {
-      return cmpWordBlank;
+    if (userGuesses != "") {
+
+
+      console.log("USER GUESSES: " + userGuesses);
+    
+    //make the blank format into an array of chars
+    var cmpWordBlankar = cmpWordBlank.split("");
+    console.log("array from blank string below:")
+    console.log(cmpWordBlankar);
+
+      //loop through letters of computer word
+      console.log("looping through computer's word: " + compWord);
+      for ( var i = 0; i < compWord.length; i++) {
+          // console.log("outer loop count: " + i);
+          var s = compWord.charAt(i);
+          // console.log("word letter: " + s);
+          console.log("current word letter: " + s + " at position " + i);
+          console.log(compWord.charAt[i]);
+          console.log("loop through user guesses");
+          for (k = 0; k < userGuesses.length; k++) {
+            var s1 = userGuesses.charAt(k);
+            console.log("inner loop counter: " + k);
+            console.log("outer loop counter: " + i);
+            console.log("current user guessed letter: " + s1);
+            console.log("word letter: " + s);
+            console.log("guess letter: " + s1);
+            if (s === s1) {
+              // console.log(s + " and " + s1 + " MATCH");
+              console.log("MATCH: " + s + ", " + s1);
+              console.log("insert " + s + " into blank word");
+              console.log("insert at index " + (i*2));
+              cmpWordBlankar[i*2] = s;
+              console.log("new blank string below");
+              console.log(cmpWordBlankar);
+            }
+            
+          }  //end of inner loop
+      }  //end of outer loop
+      console.log("completed blankar array below:");
+      console.log(cmpWordBlankar);
+      var s2 = convertA2String(cmpWordBlankar);
+      console.log("new blank string below; ");
+      console.log(s2);
+      
+      console.log("END OF fomatWordWithGuesses function")
+      console.log("retrun value is: " + s2);
+      return s2;
 
 
     }
 
-    return cmpWordBlank;
+    // return cmpWordBlank;
 
 
-    //   //loop through the current user guesses
-    //   for (k=0; k< userGuesses.length; k++) {
-    //     var s = userGuesses[k];
-    //     console.log("current char being tested:" + s);
-    //     console.log(userGuesses[k]);
-    //       //now loop through the chrs in th computer word to see which match the user guess.
-    //       for (i =0; i < wrd.length; i++) {
-    //       var s1 = wrd[i];
-    //       console.log("current letter from computer's word: " + s1);
-
-    //       if (s == s1) {
-    //         console.log("user has a matching guess: " + s      + " with " + s1);
-    //         tmp += s;
-    //         console.log("display version of computer word after adding guessed letter: " + tmp);
-    //         indexes.push(i);
-    //       }
-    //       else {
-    //         //if it is not a match, do nothing.
-    //         // tmp += " _ ";
-    //       }
-
-    //       }
-
-    //   }  //end loop through compuer's word
-    // }  //end loop through user guesses
-
+    
 
   }
 
@@ -186,18 +211,20 @@ $(document).ready(function () {
   function playerLoss() { //NOT WORKING,NOT SURE WHY
     //player has lost the game
     console.log("playerLoss function");
-    var x = document.getElementById("youLose");
-    x.play;
+    document.getElementById("youLose").play;
     alert("you lose!");
   }
 
   function playerWin() { //AUDIO NOT WORKING, NOT SURE WHY
     //player has won the game
-    document.getElementById("youWin").play; s
+    document.getElementById("youWin").play; 
     alert("You WIN!");
   }
-function converA2String(ar) {
-  //this function asembles a string from the contents of the aray parameter "ar", this avoids the commas introduced to the string result
+
+
+
+function convertA2String(ar) {
+  //this function asembles a string from the contents of the arRay parameter "ar", this avoids the commas introduced to the string result
   //by using the toString method.
   var tmp = "" //temp string to hold interim results
   // console.log("in the converA2String function");
@@ -211,69 +238,12 @@ function converA2String(ar) {
 }
 
   //**testing code goes here
-  console.log("TESTING MODE");
-
-    //FAKE getting a new word for computer
-    compWord = "SHUTTLE";
-      
-    //now format the computer word in it's blank format
-    cmpWordBlank = formatUnGuessed(compWord);
-    console.log("the formatted blank word is below");
-    console.log("'" + cmpWordBlank + "' length is: " + cmpWordBlank.length);
-    console.log("computer word length: " + compWord.length);
-    console.log("computer word is below: ");
-    console.log("'" + compWord + "'");
-
-    //make up some guesses
-    userGuesses ="SHTU";
-    console.log("user guesses: " + userGuesses);
-    
-    //make the blank format into an array of chars
-    var cmpWordBlankar = cmpWordBlank.split("");
-    console.log("array from blank string below:")
-    console.log(cmpWordBlankar);
-
-      //loop through letters of computer word
-      console.log("looping through computer's word: " + compWord);
-      for ( var i = 0; i < compWord.length; i++) {
-          // console.log("outer loop count: " + i);
-          var s = compWord.charAt(i);
-          // console.log("word letter: " + s);
-          console.log("current word letter: " + s + " at position " + i);
-          console.log(compWord[i]);
-          console.log("loop through user guesses");
-          for (k = 0; k < userGuesses.length; k++) {
-            var s1 = userGuesses.charAt(k);
-            console.log("inner loop counter: " + k);
-            console.log("outer loop counter: " + i);
-            console.log("current user guessed letter: " + s1);
-            console.log("word letter: " + s);
-            console.log("guess letter: " + s1);
-            if (s.toUpperCase === s1.toUpperCase) {
-              // console.log(s + " and " + s1 + " MATCH");
-              console.log("MATCH: " + s + ", " + s1);
-              console.log("insert " + s + " into blank word");
-              console.log("insert at index " + (i*2));
-              cmpWordBlankar[i*2] = s;
-              console.log("new blank string below");
-              console.log(cmpWordBlankar);
-            }
-            
-          }  //end of inner loop
-      }  //end of outer loop
-      console.log("completed blankar array below:");
-      console.log(cmpWordBlankar);
-      var s2 = converA2String(cmpWordBlankar);
-      console.log("new blank string below; ");
-      console.log(s2);
-
-
-
+  // console.log("TESTING MODE");
 
       
 
-      console.log("END OF TEST");
-  return; //end document.ready function without doing more work
+      // console.log("END OF TEST");
+  // return; //end document.ready function without doing more work
 
 
 
@@ -300,6 +270,8 @@ function converA2String(ar) {
       //add user guess to string of user guesses
       userGuesses += input;
       //check if the user guess is in the current word
+      cmpWordBlank = formatWordWithGuesses();
+      console.log("new blank word: " + cmpWordBlank);
       //decrement guesses remaining
       userGuessRemaining = userGuessRemaining - 1;
       if (userGuessRemaining <= 0) {
@@ -308,8 +280,12 @@ function converA2String(ar) {
       }
 
       //update the screen display
-      console.log("update sreen display");
+      console.log("update screen display");
       updateDisplay();
+
+      //determine if player has won the game
+      //game is won iF the current formatted word with guesses (after removing spaces)is the same as the word the computer guessd.
+      console.log("HAS USER WON?");
     }
     else {
       //invalid input
