@@ -109,19 +109,19 @@ $(document).ready(function () {
     if (userGuesses == "") {
       for (i = 0; i < wrd.length; i++) {
         tmp += "_ ";
-        console.log(wrd[i]);
-        console.log("tmp :" + tmp);
+        // console.log(wrd[i]);
+        // console.log("tmp :" + tmp);
       }
     }
     else {
       console.log("must call the fomrWordWithGuess function to re-format the cmpWordBlank variable content");
-      console.log("current guesses are:");
-      console.log(userGuesses);
-      tmp = formatWordWithGuesses;
+      // console.log("current guesses are:");
+      // console.log(userGuesses);
+      // tmp = formatWordWithGuesses;
     }
 
-      console.log("result before returning from formatunguessedWord function");
-      console.log("index arry before ending format function below:");
+      // console.log("result before returning from formatunguessedWord function");
+      // console.log("index arry before ending format function below:");
       // console.log(indexes);
       console.log("'" + tmp + "'");
       return tmp;
@@ -196,14 +196,84 @@ $(document).ready(function () {
     document.getElementById("youWin").play; s
     alert("You WIN!");
   }
-
+function converA2String(ar) {
+  //this function asembles a string from the contents of the aray parameter "ar", this avoids the commas introduced to the string result
+  //by using the toString method.
+  var tmp = "" //temp string to hold interim results
+  // console.log("in the converA2String function");
+  // console.log("length of ar parameter array: " + ar.length);
+  for (i =0; i < ar.length; i++) {
+    tmp += ar[i];
+  }
+  console.log("ar before return, below");
+  console.log(tmp);
+  return tmp;
+}
 
   //**testing code goes here
-  // console.log("TESTING MODE");
+  console.log("TESTING MODE");
+
+    //FAKE getting a new word for computer
+    compWord = "SHUTTLE";
+      
+    //now format the computer word in it's blank format
+    cmpWordBlank = formatUnGuessed(compWord);
+    console.log("the formatted blank word is below");
+    console.log("'" + cmpWordBlank + "' length is: " + cmpWordBlank.length);
+    console.log("computer word length: " + compWord.length);
+    console.log("computer word is below: ");
+    console.log("'" + compWord + "'");
+
+    //make up some guesses
+    userGuesses ="SHTU";
+    console.log("user guesses: " + userGuesses);
+    
+    //make the blank format into an array of chars
+    var cmpWordBlankar = cmpWordBlank.split("");
+    console.log("array from blank string below:")
+    console.log(cmpWordBlankar);
+
+      //loop through letters of computer word
+      console.log("looping through computer's word: " + compWord);
+      for ( var i = 0; i < compWord.length; i++) {
+          // console.log("outer loop count: " + i);
+          var s = compWord.charAt(i);
+          // console.log("word letter: " + s);
+          console.log("current word letter: " + s + " at position " + i);
+          console.log(compWord[i]);
+          console.log("loop through user guesses");
+          for (k = 0; k < userGuesses.length; k++) {
+            var s1 = userGuesses.charAt(k);
+            console.log("inner loop counter: " + k);
+            console.log("outer loop counter: " + i);
+            console.log("current user guessed letter: " + s1);
+            console.log("word letter: " + s);
+            console.log("guess letter: " + s1);
+            if (s.toUpperCase === s1.toUpperCase) {
+              // console.log(s + " and " + s1 + " MATCH");
+              console.log("MATCH: " + s + ", " + s1);
+              console.log("insert " + s + " into blank word");
+              console.log("insert at index " + (i*2));
+              cmpWordBlankar[i*2] = s;
+              console.log("new blank string below");
+              console.log(cmpWordBlankar);
+            }
+            
+          }  //end of inner loop
+      }  //end of outer loop
+      console.log("completed blankar array below:");
+      console.log(cmpWordBlankar);
+      var s2 = converA2String(cmpWordBlankar);
+      console.log("new blank string below; ");
+      console.log(s2);
 
 
-  // console.log("end testing - return from document ready function");
-  // return; //end document.ready function without doing more work
+
+
+      
+
+      console.log("END OF TEST");
+  return; //end document.ready function without doing more work
 
 
 
