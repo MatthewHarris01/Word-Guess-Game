@@ -3,7 +3,7 @@
 
 
 $(document).ready(function () {
-  console.log("document is ready function");
+  console.log("inside document is ready function");
 
 
   // Gobal variables
@@ -50,7 +50,6 @@ $(document).ready(function () {
   function initGame() {
     console.log("initialize the game");
     //this functions resets the game and onscreen elements ready to start a new word
-    isSpinning = true;  //set flag that game is in progress
     //RESET VARIABLES 
     userGuesses = ""  //reset user guesses to empty string
     //note userWins should not be reset, as that is the total number of wins for the entire session
@@ -64,7 +63,8 @@ $(document).ready(function () {
     //display info
     updateDisplay();
     //set game in progress flag to true;
-  }
+    isSpinning = true;  //set flag that game is in progress
+  } //end of initGame function
 
   function updateDisplay() {
     //display apprpriate pag title
@@ -77,10 +77,6 @@ $(document).ready(function () {
     }
     // display unguessed word (blanks);
     document.getElementById("cmpword").innerText = cmpWordBlank;
-    
-    
-    
-    
     //display remaining tries
     document.getElementById("guessesremaining2").innerText = userGuessRemaining;;
 
@@ -99,13 +95,13 @@ $(document).ready(function () {
     document.getElementById("wins").innerText = userWins;
     console.log("end of update display");
 
-  }
+  }  //end of updateDisplay function
 
   function formatUnGuessed(wrd) {
     //this function formats the unguessed word for display, passed as the paramter "wrd"
     //if the string of user guesses is empty, then format the whole string
     //if not, then have to check which of the user guesses are in the computer's word.
-    console.log("format ungessed word");
+    console.log("format unguessed word");
     var tmp = "";
     console.log("in formatting function");
     console.log("wrd argument is: " + wrd);
@@ -183,18 +179,46 @@ $(document).ready(function () {
       console.log(s2);
       
       console.log("END OF fomatWordWithGuesses function")
-      console.log("retrun value is: " + s2);
+      console.log("return value is: " + s2);
       return s2;
-
-
     }
+    }  //end formatWordWithGuesses function
 
-    // return cmpWordBlank;
+
+  function testUserWin () {
+    //this functon tests whether the user has won the game.
+    var tmp =""
+    console.log("in testUserWin function");
+    console.log("HAS USER WON?");
+
+    //echo the current use guess
+    console.log(cmpWordBlank);
+    //echo the computer's word
+    console.log(compWord);
+
+    //remove spaces from the "blank" word
+    tmp = cmpWordBlank.replace(/ /g,"" );
 
 
-    
+    //test the result of stripping spaces
+    console.log("cblank word less spaces: '" + tmp +"'");
+
+
+    //compare the spaceless "blank" word witht he computer guess, if they are equal, the user has won.
+  if (tmp == compWord ) {
+    console.log("USER HAS WON!");
+    playerWin();
+    // userWins();
+    userWins += 1;
+    isSpinning=false;  //we'er not playing at this point
+    initGame();
 
   }
+  else {
+    console.log("NOT A WIN YET!");
+  }
+
+  }  //end testUserWin function
 
 
   function cmpPickWord() {
@@ -218,7 +242,7 @@ $(document).ready(function () {
   function playerWin() { //AUDIO NOT WORKING, NOT SURE WHY
     //player has won the game
     document.getElementById("youWin").play; 
-    alert("You WIN!");
+    alert("You WIN!" + "the computer's word was: " + compWord);
   }
 
 
@@ -285,7 +309,8 @@ function convertA2String(ar) {
 
       //determine if player has won the game
       //game is won iF the current formatted word with guesses (after removing spaces)is the same as the word the computer guessd.
-      console.log("HAS USER WON?");
+      testUserWin();
+      // console.log("HAS USER WON?");
     }
     else {
       //invalid input
