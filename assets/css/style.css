@@ -11,6 +11,10 @@ body {
 	
 }
 
+div.hintbox {
+	border:2px solid blue;
+}
+
 div.computeroutput {
 	border:2px solid #FFFF99;
 	margin-top:30pt;

@@ -30,7 +30,7 @@
     <p id="cmpword">no word selected by computer, yet</p>
   <!-- show word as "_ _ _ _ (note there is a space between each "_")-->
   <!-- show letters guessed-->
-  <p>You have used these letters, so far: <span id="guesses" style="color:green;"><b> user guesses</b></span></p>
+  <p>You have used these letters, so far: <span id="guesses" style="color:green;"><b> None</b></span></p>
   <p><strong>You have <span id="guessesremaining2" style="color:red;"> 0 </span> guesses remaining!</strong></p>
   <!---->
 </div>
@@ -39,10 +39,16 @@
   <!-- THIS DIV IS TO SHOW THE USER INFO, SUCH AS WINS, GUESSES REMAINING, AND SO ON.-->
   <p><b>Information about your score and remaining tries</b></p>
   <!-- <p>Tries remaining: <span id="guessesremaining1" style="color:green;">26</span></p> -->
-  <p><strong>You have guessed the word correctly: <span id=wins>0</span></strong> times.</p>
- <p><strong>You have won <span id="wins">0</span> times!</strong></p>
+  <p><strong>You have guessed the word correctly: <span id=wins style="color: green;" >0</span></strong> times.</p>
+  <button id="hint" onclick="showHint()">HINT</button>
+ <!-- <p><strong>You have won <span id="wins">0</span> times!</strong></p> -->
 </div>
 
+<!-- this is the hint box, which is not displayed until the user asks for hints-->
+<div class="hintbox" style="width:15%;padding:0;margin-left:auto;margin-right:auto;">
+  <p>HINT</p>
+  <p id="hintlist">This is the list of hints</p>
+</div>
 
 
 <!--AUDIO LINKS-->
