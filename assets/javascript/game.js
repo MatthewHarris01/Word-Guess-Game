@@ -23,15 +23,34 @@ var isHint = false; //whether or not the hint div is visible.
 
 function showHint() {
   //this function shows the list of possible words to the user, at a cost of half the player's remaining tries
-  var cont = confirm("Showing hints will cost HALF of your remaining guesses!! Are you sure you want to show hints?")
+  if (isHint == true) {
+    alert("The hint box is already visible!");
+    return;
+  }
+  var cont = confirm("Showing hints will cost HALF of your remaining guesses!! AND your win score will be reduced by 1.<br> Are you sure you want to show hints?")
 
   if (cont==true) { 
     console.log("show hints");
-    isHint=true;  //the hint box is now going to be visible
+    isHint=true;  //the hint box is now visible
+    //PENALTIES for seeking a hint
+    userGuessRemaining = Math.floor(userGuessRemaining/2)
+    userWins = userWins -1;
+
+    var tmp ="The computer is asking you to guess one of the following words. <br>(this hint list will be hidden after your next letter guess!) <br>";
+    for (i=0; i<wordList.length; i++) {
+      //make hintbox visible
+      document.getElementById("hintbox").style.visibility="visible";
+
+
+      //assemble the hint string
+      tmp += wordList[i] + "<br>";
+    }
+    document.getElementById("hintlist").innerHTML = tmp;
   }
   else {
     console.log("DON'T show hints");
   }
+  tmp += "<br> This hint list will disappear after you next letter guess!"
   
 } //end funtion showHint
 
@@ -70,7 +89,9 @@ $(document).ready(function () {
     //RESET VARIABLES 
     userGuesses = ""  //reset user guesses to empty string
     //note userWins should not be reset, as that is the total number of wins for the entire session
+    if (isHint != true) {
     userGuessRemaining = 26;  //user gets a total of 26 guesses each word.
+    }
     compWord = cmpPickWord(); //pick a word from the array of words.
     cmpWordBlank = formatUnGuessed(compWord);
     // console.log("computer word is '" + compWord + "'");
@@ -173,6 +194,7 @@ $(document).ready(function () {
           }  //end of inner loop
       }  //end of outer loop
       var s2 = convertA2String(cmpWordBlankar); //convert the array into a string
+      updateDisplay();  //update display here, so maybe the final letter user guesses for win will be displayed
       return s2;
     }
     }  //end formatWordWithGuesses function
@@ -187,7 +209,9 @@ $(document).ready(function () {
     //compare the spaceless "blank" word witht he computer guess, if they are equal, the user has won.
   if (tmp == compWord ) {
     // console.log("USER HAS WON!");
-    updateDisplay();  //update the display after final letter guess
+    updateDisplay();  //update the display after final letter guess, but fnal letter gues is till no being displayed.
+    document.getElementById("cmpword").innerText = cmpWordBlank;
+
     playerWin();
     userWins += 1;
     isSpinning=false;  //we're not playing at this point
@@ -223,7 +247,7 @@ $(document).ready(function () {
   function playerWin() { //AUDIO NOT WORKING, NOT SURE WHY -- sound does not play.
     //player has won the game
     document.getElementById("youWin").play; 
-    alert("You WIN!" + "the computer's word was: " + compWord);
+    alert("You WIN!" + " The computer's word was: " + compWord);
   }
 
 
@@ -257,7 +281,7 @@ function convertA2String(ar) {
     //check whether game is already in progress
     if (isSpinning !== true) {
       //game is not yet in progress, intialize the game
-      console.log("game has not started");
+      // console.log("game has not started");
       initGame();
       isSpinning = true;  //only mark game in progress here
       updateDisplay();  //refresh the display
@@ -266,6 +290,11 @@ function convertA2String(ar) {
       //user has pressed a valid letter key
       // console.log("user pressed valid letter: " + input);
       //add user guess to string of user guesses
+      //hide the hintbox if it is visible
+      if (isHint == true) {
+        document.getElementById("hintbox").style.visibility = "hidden";
+        isHint = false;
+      }
       userGuesses += input;
       //check if the user guess is in the current word
       cmpWordBlank = formatWordWithGuesses();
@@ -284,7 +313,7 @@ function convertA2String(ar) {
       //determine if player has won the game
       //game is won iF the current formatted word with guesses (after removing spaces)is the same as the word the computer guessd.
       testUserWin();
-    }
+    } //end if is valid user input;
     else {
       //invalid input
       alert("you must press one of the letter keys a-z!!");
