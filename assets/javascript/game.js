@@ -239,7 +239,7 @@ $(document).ready(function () {
     //player has lost the game
     // console.log("playerLoss function");
     document.getElementById("youLose").play;
-    alert("you lose!");
+    alert("you lose! The computer's word was: " + compWord);
     isSpinning = false;
     initGame();
   }
